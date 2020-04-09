@@ -1,4 +1,4 @@
-package servlets;
+package servlet;
 
 import model.entity.User;
 import model.service.UserService;
@@ -16,8 +16,6 @@ public class EditUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=utf-8");
-
         int id = Integer.parseInt(req.getParameter("id"));
         String fname = req.getParameter("fname");
         String lname = req.getParameter("lname");

@@ -1,4 +1,4 @@
-package servlets;
+package servlet;
 
 import model.entity.User;
 import model.service.UserService;
@@ -16,7 +16,6 @@ public class SearchUserByIdServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=utf-8");
         int id;
 
         if (!req.getParameter("id").equals("") || !req.getParameter("id").isEmpty()) {

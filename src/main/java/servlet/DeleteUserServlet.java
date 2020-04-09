@@ -1,6 +1,5 @@
-package servlets;
+package servlet;
 
-import model.entity.User;
 import model.service.UserService;
 import model.service.UserServiceImpl;
 
@@ -11,20 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/edit_user")
-public class SendEditUserFormServlet extends HttpServlet {
+@WebServlet("/delete_user")
+public class DeleteUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=utf-8");
+        int id = Integer.parseInt(req.getParameter("id"));
 
         UserService userService = new UserServiceImpl();
+        userService.deleteUser(id);
 
-        int id = Integer.parseInt(req.getParameter("id"));
-        User user = userService.getUserById(id);
-
-        req.setAttribute("user", user);
-
-        req.getRequestDispatcher("/jsp/edit.jsp").forward(req, resp);
+        resp.sendRedirect("/users");
     }
 }

@@ -1,7 +1,5 @@
-package servlets;
+package servlet;
 
-import model.dao.UserDao;
-import model.dao.UserDaoImpl;
 import model.entity.User;
 import model.service.UserService;
 import model.service.UserServiceImpl;
@@ -19,8 +17,6 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=utf-8");
-
         UserService userService = new UserServiceImpl();
         List<User> userList = userService.getAllUsers();
         req.setAttribute("userList", userList);

@@ -1,4 +1,4 @@
-package servlets;
+package servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +12,6 @@ public class SendAddUserFormServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=utf-8");
-
         req.getRequestDispatcher("/jsp/add.jsp").forward(req, resp);
     }
 }
