@@ -17,7 +17,6 @@ public class UserDaoImpl implements UserDao {
 
         try (Connection connection = jdbcConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
             statement.setString(1, user.getFname());
             statement.setString(2, user.getLname());
             statement.setString(3, user.getEmail());
@@ -30,7 +29,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         String sql = "SELECT * FROM users";
-        List<User> userList = new ArrayList<>();
+        List<User> users = new ArrayList<>();
 
         try (Connection connection = jdbcConnection.getConnection();
              Statement statement = connection.createStatement();
@@ -42,13 +41,13 @@ public class UserDaoImpl implements UserDao {
                 String lname = resultSet.getString(3);
                 String email = resultSet.getString(4);
 
-                userList.add(new User(id, fname, lname, email));
+                users.add(new User(id, fname, lname, email));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return userList;
+        return users;
     }
 
     @Override
@@ -86,6 +85,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(2, user.getLname());
             statement.setString(3, user.getEmail());
             statement.setInt(4, id);
+
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,6 +100,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, id);
+
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

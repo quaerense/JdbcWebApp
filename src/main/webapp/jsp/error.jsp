@@ -7,9 +7,9 @@
         <title>Error</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     </head>
-
     <body>
         <div>
+
             <h1>User with ID ${requestScope.id} does not exist</h1>
 
             <p><a href="${pageContext.request.contextPath}/users">To Main</a></p>

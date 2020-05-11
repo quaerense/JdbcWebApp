@@ -7,18 +7,16 @@
         <title>Users</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     </head>
-
     <body>
         <div>
+
             <h1>User Database</h1>
 
-            <form action="${pageContext.request.contextPath}/search_user">
+            <form action="${pageContext.request.contextPath}/search">
                 <label><input type="number" name="id" placeholder="Enter ID"></label>
                 <input type="submit" value="Search">
             </form>
-
-            <a href="${pageContext.request.contextPath}/add_user">Add User</a><br>
-
+            <a href="${pageContext.request.contextPath}/add">Add User</a><br>
             <table>
                 <tr>
                     <th>ID</th>
@@ -27,15 +25,15 @@
                     <th>Email</th>
                     <th>Actions</th>
                 </tr>
-                <c:forEach items="${requestScope.userList}" var="user">
+                <c:forEach items="${requestScope.users}" var="user">
                     <tr>
                         <td>${user.id}</td>
                         <td>${user.fname}</td>
                         <td>${user.lname}</td>
                         <td>${user.email}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/edit_user?id=${user.id}">Edit</a>
-                            <a href="${pageContext.request.contextPath}/delete_user?id=${user.id}">Delete</a>
+                            <a href="${pageContext.request.contextPath}/edit?id=${user.id}">Edit</a>
+                            <a href="${pageContext.request.contextPath}/delete?id=${user.id}">Delete</a>
                         </td>
                     </tr>
                 </c:forEach>

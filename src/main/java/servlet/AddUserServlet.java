@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/users")
-public class MainServlet extends HttpServlet {
+@WebServlet("/add")
+public class AddUserServlet extends HttpServlet {
     private UserDao dao;
 
     @Override
@@ -23,9 +22,17 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> users = dao.getAllUsers();
-        req.setAttribute("users", users);
+        req.getRequestDispatcher("/jsp/add.jsp").forward(req, resp);
+    }
 
-        req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String fname = req.getParameter("fname");
+        String lname = req.getParameter("lname");
+        String email = req.getParameter("email");
+
+        dao.addUser(new User(fname, lname, email));
+
+        resp.sendRedirect(req.getContextPath() + "/users");
     }
 }

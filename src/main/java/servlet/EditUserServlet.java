@@ -1,8 +1,8 @@
 package servlet;
 
+import model.dao.UserDao;
+import model.dao.UserDaoImpl;
 import model.entity.User;
-import model.service.UserService;
-import model.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,17 +13,31 @@ import java.io.IOException;
 
 @WebServlet("/edit")
 public class EditUserServlet extends HttpServlet {
+    private int id;
+    private UserDao dao;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+    public void init() {
+        dao = new UserDaoImpl();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        id = Integer.parseInt(req.getParameter("id"));
+        User user = dao.getUserById(id);
+
+        req.setAttribute("user", user);
+        req.getRequestDispatcher("/jsp/edit.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String fname = req.getParameter("fname");
         String lname = req.getParameter("lname");
         String email = req.getParameter("email");
 
-        UserService userService = new UserServiceImpl();
-        userService.editUser(id, new User(fname, lname, email));
+        dao.editUser(id, new User(fname, lname, email));
 
-        resp.sendRedirect("/users");
+        resp.sendRedirect(req.getContextPath() + "/users");
     }
 }

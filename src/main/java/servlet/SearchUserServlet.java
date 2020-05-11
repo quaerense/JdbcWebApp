@@ -1,8 +1,8 @@
 package servlet;
 
+import model.dao.UserDao;
+import model.dao.UserDaoImpl;
 import model.entity.User;
-import model.service.UserService;
-import model.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/search_user")
-public class SearchUserByIdServlet extends HttpServlet {
+@WebServlet("/search")
+public class SearchUserServlet extends HttpServlet {
+    private UserDao dao;
+
+    @Override
+    public void init() {
+        dao = new UserDaoImpl();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,8 +30,7 @@ public class SearchUserByIdServlet extends HttpServlet {
             id = -1;
         }
 
-        UserService userService = new UserServiceImpl();
-        User user = userService.getUserById(id);
+        User user = dao.getUserById(id);
 
         if (user != null) {
             req.setAttribute("user", user);

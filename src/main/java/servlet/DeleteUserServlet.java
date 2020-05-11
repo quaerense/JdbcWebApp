@@ -1,7 +1,8 @@
 package servlet;
 
-import model.service.UserService;
-import model.service.UserServiceImpl;
+import model.dao.UserDao;
+import model.dao.UserDaoImpl;
+import model.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +11,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/delete_user")
+@WebServlet("/delete")
 public class DeleteUserServlet extends HttpServlet {
+    private int id;
+    private UserDao dao;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+    public void init() {
+        dao = new UserDaoImpl();
+    }
 
-        UserService userService = new UserServiceImpl();
-        userService.deleteUser(id);
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        id = Integer.parseInt(req.getParameter("id"));
+        User user = dao.getUserById(id);
 
-        resp.sendRedirect("/users");
+        req.setAttribute("user", user);
+        req.getRequestDispatcher("/jsp/delete.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        dao.deleteUser(id);
+
+        resp.sendRedirect(req.getContextPath() + "/users");
     }
 }
