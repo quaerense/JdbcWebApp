@@ -36,6 +36,6 @@ then go to the folder `target` formed by the maven and copy the file `JdbcWebApp
 into the folder `apache-tomcat/webapps` from there.<br>
 
 6. Run Tomcat Server using `apache-tomcat/bin/startup.bat` or `apache-tomcat/bin/startup.sh` 
-and in the browser, go to `localhost:8080/users`.
+and in the browser, go to `localhost:8080/JdbcWebApp-1.0-SNAPSHOT/users`.
 
 
